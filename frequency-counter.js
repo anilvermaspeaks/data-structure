@@ -6,7 +6,7 @@
 //arr1[1,4,6] arr2[1,36] false
 //arr1[1,4,6] arr2[1,16,36] true
 
-//sol 1
+//sol 1 O(N ^ 2) run time complexity
 function frequecyCounter(arr1, arr2) {
     if (arr1.length !== arr2.length) {
         return false;
@@ -23,3 +23,32 @@ function frequecyCounter(arr1, arr2) {
 }
 
 frequecyCounter([1, 2, 3, 2], [9, 1, 4, 4])
+
+// sol 2 O(n) run time complexity
+
+function frequecyCounter(arr1, arr2) {
+    if (arr1.length !== arr2.length) {
+        return false;
+    }
+    let frequencyCounter1 = {}
+    let frequencyCounter2 = {}
+    for (let val of arr1) {
+        frequencyCounter1[val] = (frequencyCounter1[val] || 0) + 1
+    }
+    for (let val of arr2) {
+        frequencyCounter2[val] = (frequencyCounter2[val] || 0) + 1
+    }
+
+    for (let key in frequencyCounter1) {
+        if (!(key ** 2 in frequencyCounter2)) {
+            return false
+        }
+        if (frequencyCounter2[key ** 2] !== frequencyCounter1[key]) {
+            return false
+        }
+    }
+    return true
+}
+
+console.log(frequecyCounter([1, 2, 6, 2], [4, 1, 36, 4]))
+
